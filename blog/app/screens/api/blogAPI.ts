@@ -1,10 +1,17 @@
+const API_URL = "https://rails-on-mobile-o28t3.ondigitalocean.app/api/v1/";
 interface NewPostPayload {
   title: string;
   body: string;
 }
 
 export async function getPosts() {
-  const response = await fetch("http://localhost:3000/api/v1/posts");
+  const requestInfo = {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  const response = await fetch(`${API_URL}posts`, requestInfo);
   const posts = await response.json();
   return posts;
 }
@@ -17,10 +24,7 @@ export async function createPost(payload: NewPostPayload) {
       "Content-Type": "application/json",
     },
   };
-  const response = await fetch(
-    "http://localhost:3000/api/v1/posts",
-    requestInfo
-  );
+  const response = await fetch(`${API_URL}posts`, requestInfo);
   const createdPost = await response.json();
   return createdPost;
 }
